@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="main_color">#123F88</color>-->
+    <color name="main_color">#3500bb</color>
+    <color name="sub_color">#ffe400</color>
+
+    <color name="ripple">#fff71804</color>
+    <color name="accent">#e74c3c</color>
+    <color name="accent_pressed">#ffe7897b</color>
+
+</resources>
