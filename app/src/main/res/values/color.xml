@@ -4,8 +4,19 @@
     <color name="main_color">#3500bb</color>
     <color name="sub_color">#ffe400</color>
 
-    <color name="ripple">#fff71804</color>
+    <color name="ripple">#ffe7bfa9</color>
     <color name="accent">#e74c3c</color>
     <color name="accent_pressed">#ffe7897b</color>
+
+    <color name="text">#ff4c4c4c</color>
+
+    <integer-array name="pocket_background_colors">
+        <item>@color/main_color</item>
+        <item>@color/sub_color</item>
+        <item>@color/accent</item>
+        <!--<item>@color/pocket_color_2</item>-->
+    </integer-array>
+
+    <color name="pocket_color_2">#34bdb7</color>
 
 </resources>
