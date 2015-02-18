@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
     };
 
     private DCServiceCb mDCServiceCb = new DCServiceCb();
+    private long selectedId = -1;
 
     public class DCServiceCb implements BluetoothLeService.BLEServiceCallback {
 
@@ -214,9 +215,21 @@ public class MainActivity extends Activity {
 
                 mDeviceAddress = device.getAddress();
 
-                Log.d(device.getName()+" "+device.getAddress());
-                Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
-                bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                id = selectedId;
+
+                if(id != selectedId) {
+
+                    if(mBluetoothLeService != null){
+                        mBluetoothLeService.disconnect();
+                    }
+                    Log.d(device.getName() + " " + device.getAddress());
+                    Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
+                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                }else{
+                    mBluetoothLeService.disconnect();
+                }
+
+
 
             }
         });
