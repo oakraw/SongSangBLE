@@ -21,7 +21,7 @@ package com.oakraw.songsangble.utils;
  */
 public class Log {
 
-    protected static final String TAG = "ZpcatBle";
+    protected static final String TAG = "oakTag";
 
     public Log() {
     }

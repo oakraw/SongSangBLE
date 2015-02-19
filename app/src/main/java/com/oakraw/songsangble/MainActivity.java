@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+            Log.d("oak connect");
             if (!mBluetoothLeService.initialize()) {
                 Log.e("Unable to initialize Bluetooth");
                 finish();
@@ -72,6 +73,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
+            Log.d("oak disconnect");
+
             mBluetoothLeService = null;
             Toast.makeText(getApplicationContext(),"Disconnected",Toast.LENGTH_SHORT).show();
 
@@ -80,6 +83,7 @@ public class MainActivity extends Activity {
 
     private DCServiceCb mDCServiceCb = new DCServiceCb();
     private long selectedId = -1;
+    private boolean isServiceBind = false;
 
     public class DCServiceCb implements BluetoothLeService.BLEServiceCallback {
 
@@ -215,19 +219,39 @@ public class MainActivity extends Activity {
 
                 mDeviceAddress = device.getAddress();
 
-                id = selectedId;
+                Log.d(selectedId+" "+ id);
+
 
                 if(id != selectedId) {
 
-                    if(mBluetoothLeService != null){
-                        mBluetoothLeService.disconnect();
+                    Log.d("start_connect");
+
+                    if(isServiceBind){
+                        unbindService(mServiceConnection);
                     }
                     Log.d(device.getName() + " " + device.getAddress());
                     Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    isServiceBind = true;
+                    selectedId = id;
+                    for(int i =0; i< parent.getChildCount();i++){
+                        parent.getChildAt(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    }
+
+                    view.setBackgroundColor(getResources().getColor(R.color.gray));
+
                 }else{
-                    mBluetoothLeService.disconnect();
+                    Log.d("stop_connect");
+
+                    unbindService(mServiceConnection);
+                    isServiceBind = false;
+                    selectedId = -1;
+                    view.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
                 }
+
+
+
 
 
 

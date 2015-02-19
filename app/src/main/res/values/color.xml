@@ -18,5 +18,6 @@
     </integer-array>
 
     <color name="pocket_color_2">#34bdb7</color>
+    <color name="gray">#ffe4e4e4</color>
 
 </resources>
